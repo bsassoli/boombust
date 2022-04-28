@@ -1,4 +1,6 @@
-# SOURCE CODE FOR THE BOOM BUST
+# THE BOOM BUST
+
+## Webapp / website
 ## Tech stack
 Currently the idea is to use Django for the backend as an user management and authentication API as well as for the content management:
 - `users` app manages users
