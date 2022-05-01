@@ -12,10 +12,11 @@ from .models import CustomUser
 class UserViewSet(ModelViewSet):
 
     serializer_class = UserSerializer
-    queryset = CustomUser.objects.all()
+    queryset = CustomUser.objects.all().order_by("last_name")
+
 
 class SignUpView(SuccessMessageMixin, CreateView):
-  template_name = 'users/signup.html'
-  success_url = reverse_lazy('signup')
-  form_class = UserRegisterForm
-  success_message = "Your profile was created successfully"
+    template_name = "users/signup.html"
+    success_url = reverse_lazy("signup")
+    form_class = UserRegisterForm
+    success_message = "Your profile was created successfully"
