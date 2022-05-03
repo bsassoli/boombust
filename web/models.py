@@ -1,10 +1,13 @@
 from django.db import models
-from ..users.models import CustomUser
 
 # Create your models here.
 class Asset(models.Model):
     name = models.CharField(max_length=40)
     ticker = models.CharField(max_length=10, null=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Signal(models.Model):
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
