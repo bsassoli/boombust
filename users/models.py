@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     """CustomUser BAse CustomUser class"""
-    
+
     username_validator = ASCIIUsernameValidator()
     username = CICharField(
         _("username"),
@@ -82,4 +82,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Subscription(models.Model):
     """To be implemented"""
+
     pass

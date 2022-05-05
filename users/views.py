@@ -11,12 +11,14 @@ from .models import CustomUser
 
 class UserViewSet(ModelViewSet):
     """API CustomUser viewset."""
+
     serializer_class = UserSerializer
     queryset = CustomUser.objects.all().order_by("last_name")
 
 
 class SignUpView(SuccessMessageMixin, CreateView):
     """API CustomUser signup view."""
+
     template_name = "users/signup.html"
     success_url = reverse_lazy("signup")
     form_class = UserRegisterForm

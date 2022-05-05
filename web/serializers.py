@@ -4,6 +4,7 @@ from web.models import Signal, Asset
 
 class SignalSerializer(serializers.ModelSerializer):
     """Serializes the Signal model."""
+
     class Meta:
         model = Signal
         fields = "__all__"
@@ -11,6 +12,7 @@ class SignalSerializer(serializers.ModelSerializer):
 
 class AssetSerializer(serializers.ModelSerializer):
     """Serializes the Asset model."""
+
     class Meta:
         model = Asset
         fields = "__all__"

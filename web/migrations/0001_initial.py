@@ -8,31 +8,70 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Asset',
+            name="Asset",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=40)),
-                ('ticker', models.CharField(max_length=10, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=40)),
+                ("ticker", models.CharField(max_length=10, null=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Signal',
+            name="Signal",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('signal', models.CharField(choices=[('RB', 'RED BOOM'), ('OB', 'ORANGE BOOM'), ('NE', 'NEUTRAL'), ('BB', 'BLUE BUST'), ('GB', 'GREEN BUST')], default='RB', max_length=2)),
-                ('date', models.DateField(auto_now_add=True)),
-                ('opening_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('closing_price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('performance_usd', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('performance_percentage', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('note', models.TextField(max_length=300)),
-                ('shade', models.CharField(max_length=30)),
-                ('asset', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web.asset')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "signal",
+                    models.CharField(
+                        choices=[
+                            ("RB", "RED BOOM"),
+                            ("OB", "ORANGE BOOM"),
+                            ("NE", "NEUTRAL"),
+                            ("BB", "BLUE BUST"),
+                            ("GB", "GREEN BUST"),
+                        ],
+                        default="RB",
+                        max_length=2,
+                    ),
+                ),
+                ("date", models.DateField(auto_now_add=True)),
+                ("opening_price", models.DecimalField(decimal_places=2, max_digits=10)),
+                ("closing_price", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "performance_usd",
+                    models.DecimalField(decimal_places=2, max_digits=10),
+                ),
+                (
+                    "performance_percentage",
+                    models.DecimalField(decimal_places=2, max_digits=10),
+                ),
+                ("note", models.TextField(max_length=300)),
+                ("shade", models.CharField(max_length=30)),
+                (
+                    "asset",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="web.asset"
+                    ),
+                ),
             ],
         ),
     ]
