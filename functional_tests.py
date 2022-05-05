@@ -7,11 +7,9 @@ import unittest
 
 
 class NewVisitorTest(unittest.TestCase):
-
     def setUp(self) -> None:
         print("Starting functional tests")
-        self.browser = webdriver.Firefox(
-            executable_path=GeckoDriverManager().install())
+        self.browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 
     def tearDown(self) -> None:
         self.browser.quit()

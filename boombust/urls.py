@@ -18,11 +18,11 @@ from django.urls import path, include
 
 urlpatterns = [
     # OAuth
-    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
+    path("auth/", include("drf_social_oauth2.urls", namespace="drf")),
     # Users
-    path('users/', include('users.urls')),
+    path("users/", include("users.urls")),
     # API
-    path('web/', include('web.urls')),
+    path("web/", include("web.urls")),
     # Admin
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 ]

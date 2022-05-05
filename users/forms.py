@@ -6,7 +6,6 @@ User = get_user_model()
 
 
 class UserRegisterForm(UserCreationForm):
-
     """Trial user registration form."""
 
     email = forms.EmailField()

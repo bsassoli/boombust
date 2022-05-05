@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
+import axios from "axios";
+
 import { useTheme } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,11 +16,33 @@ import Container from './Container';
 
 const SimpleTable = (props) => {
   const theme = useTheme();
-  const mock = props.signalsData;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get(`/web/signals/`);
+        setData(response.data);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getData();
+  }, []);
+
   
 
   return (
-    <Container>      
+    <Container>
+      {loading && <div>A moment please...</div>}
+      {error && (
+        <div>{`There is a problem fetching the post data - ${error}`}</div>
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 750 }} aria-label="simple table">
           <TableHead sx={{ bgcolor: "alternate.dark" }}>
@@ -72,9 +96,9 @@ const SimpleTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {mock.map((item, i) => (
+            {data && data.map((item) => (
               <TableRow
-                key={i}
+                key={item.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
@@ -82,7 +106,6 @@ const SimpleTable = (props) => {
                 <TableCell component="th" scope="row">
                   <Typography variant={"subtitle2"} fontWeight={700}>
                     {item.asset}
-                    {i}
                   </Typography>
                 </TableCell>
                 <TableCell>
