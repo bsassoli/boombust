@@ -1,0 +1,8 @@
+client id
+CwhChNsaf7xyzVF8jEUmfDnV0clNWxTnWoU8nyL0
+*************************************************
+client secret
+tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9QnGG3YTPOJXXulppqwXlOLUCBJoTSYPujGM5IHtzTMmqqOp10u
+**************************************************************************************************
+CURL
+curl -X POST -d "client_id=CwhChNsaf7xyzVF8jEUmfDnV0clNWxTnWoU8nyL0&client_secret=tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9QnGG3YTPOJXXulppqwXlOLUCBJoTSYPujGM5IHtzTMmqqOp10u&grant_type=password&username=bernardino&password=boombust" http://localhost:8000/auth/token/

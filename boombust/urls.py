@@ -17,7 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # OAuth
+    path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
+    # Users
     path('users/', include('users.urls')),
-    path('signals/', include('web.urls')),
+    # API
+    path('web/', include('web.urls')),
+    # Admin
     path('admin/', admin.site.urls),
 ]

@@ -10,6 +10,7 @@ class Asset(models.Model):
 
 
 class Signal(models.Model):
+    """Signals model."""
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     signal = models.CharField(
         max_length=2,
