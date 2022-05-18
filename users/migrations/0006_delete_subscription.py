@@ -6,11 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0005_remove_signal_asset_delete_asset_delete_signal'),
+        ("users", "0005_remove_signal_asset_delete_asset_delete_signal"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Subscription',
+            name="Subscription",
         ),
     ]

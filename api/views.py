@@ -9,7 +9,7 @@ class SignalViewSet(ModelViewSet):
     """Signals view."""
 
     serializer_class = SignalSerializer
-    queryset = Signal.objects.all().order_by("date")
+    queryset = Signal.objects.all().order_by("-date")
 
 
 class AssetViewSet(ModelViewSet):
@@ -27,4 +27,4 @@ class SignalByAssetList(generics.ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         query_value = self.request.query_params["asset"]
-        return self.queryset.filter(asset=query_value).order_by("date")
+        return self.queryset.filter(asset=query_value).order_by("-date")

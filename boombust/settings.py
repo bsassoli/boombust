@@ -169,7 +169,7 @@ AUTHENTICATION_BACKENDS = (
 
 # Subscriptions
 # Set your currency type
-DFS_CURRENCY_LOCALE = 'en_us'
+DFS_CURRENCY_LOCALE = "en_us"
 
 # Specify your base template file
 # DFS_BASE_TEMPLATE = 'base.html'

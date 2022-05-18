@@ -1,4 +1,5 @@
 from django.db import models
+
 # from .CONSTANTS import SignalChoices
 from django.utils.translation import gettext_lazy as _
 
@@ -23,10 +24,11 @@ class Asset(models.Model):
     ticker = models.CharField(max_length=10, null=True)
     long_description = models.TextField(max_length=1000, null=True)
     short_description = models.TextField(max_length=200, null=True)
+
     class Meta:
         ordering = ["name"]
         indexes = [
-            models.Index(fields=['name']),
+            models.Index(fields=["name"]),
         ]
 
     def __str__(self):
@@ -35,6 +37,7 @@ class Asset(models.Model):
 
 class Signal(models.Model):
     """Signals model."""
+
     RED_BOOM = "RBO"
     ORANGE_BOOM = "OBO"
     NEUTRAL = "NEU"
@@ -64,8 +67,8 @@ class Signal(models.Model):
     class Meta:
         ordering = ["date", "asset"]
         indexes = [
-            models.Index(fields=['date', 'asset']),
-            models.Index(fields=['asset', 'signal']),
+            models.Index(fields=["date", "asset"]),
+            models.Index(fields=["asset", "signal"]),
         ]
 
     def __str__(self):

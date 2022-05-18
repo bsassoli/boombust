@@ -10,7 +10,6 @@ import Container from "./Container";
 
 const Hero = () => {
   const theme = useTheme();
-
   const isMd = useMediaQuery(theme.breakpoints.up("md"), {
     defaultMatches: true,
   });
