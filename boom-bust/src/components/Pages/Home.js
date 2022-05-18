@@ -1,21 +1,20 @@
-import NavBar from "./NavBar";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
+import NavBar from "./NavBar";
 import Hero from "./Hero";
 import Container from "./Container";
+import Reasons from "./Reasons";
 import SimpleTable from "./SimpleTable";
 
 const Home = () => {
-  
   return (
     <div>
       <NavBar />
-      <Container>
-        
-        <Hero />
-        <SimpleTable />
-      </Container>
+        <Container>
+          <Hero />
+          <Reasons />
+          <SimpleTable />
+        </Container>
     </div>
   );
 };

@@ -27,4 +27,4 @@ class SignalByAssetList(generics.ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         query_value = self.request.query_params["asset"]
-        return self.queryset.filter(asset=query_value)
+        return self.queryset.filter(asset=query_value).order_by("date")

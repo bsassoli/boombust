@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "oauth2_provider",
     "social_django",
     "drf_social_oauth2",
+    "subscriptions",
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
 ]
@@ -150,7 +151,7 @@ CORS_ALLOWED_ORIGINS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        'rest_framework.permissions.AllowAny',
+        "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -165,3 +166,10 @@ AUTHENTICATION_BACKENDS = (
     "drf_social_oauth2.backends.DjangoOAuth2",
     "django.contrib.auth.backends.ModelBackend",
 )
+
+# Subscriptions
+# Set your currency type
+DFS_CURRENCY_LOCALE = 'en_us'
+
+# Specify your base template file
+# DFS_BASE_TEMPLATE = 'base.html'

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import subscriptions
 
 urlpatterns = [
     # OAuth
@@ -22,7 +23,9 @@ urlpatterns = [
     # Users
     path("users/", include("users.urls")),
     # API
-    path("web/", include("web.urls")),
+    path("api/", include("api.urls")),
     # Admin
     path("admin/", admin.site.urls),
+    # Subscriptions
+    path("subscriptions/", include("subscriptions.urls")),
 ]

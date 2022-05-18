@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    """CustomUser BAse CustomUser class"""
+    """CustomUser. Base CustomUser Class."""
 
     username_validator = ASCIIUsernameValidator()
     username = CICharField(
@@ -78,9 +78,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
-
-
-class Subscription(models.Model):
-    """To be implemented"""
-
-    pass

@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from './Container';
 
 
-const SimpleTable = (props) => {
+const SimpleTable = () => {
   const theme = useTheme();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ const SimpleTable = (props) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(`/web/signals/`);
+        const response = await axios.get(`/api/signals/`);
         setData(response.data);
         setError(null);
       } catch (err) {

@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import generics
 from .serializers import UserSerializer
 from .models import CustomUser
 
