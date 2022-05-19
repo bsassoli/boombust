@@ -3,28 +3,14 @@ from django.urls import reverse_lazy
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
-
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import permissions, status, generics
+from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
 from .models import CustomUser
-
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import UserSerializer, UserSerializerWithToken
-
-
-@api_view(['GET'])
-def current_user(request):
-    """
-    Determine the current user by their token, and return their data
-    """
-
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
-
 
 class UserList(APIView):
     """
@@ -54,6 +40,7 @@ class UserViewSet(ModelViewSet):
         queryset = queryset.filter(user = self.request.user)
     
         return queryset
+    
 class SignUpView(SuccessMessageMixin, CreateView):
     """API CustomUser signup view."""
 
