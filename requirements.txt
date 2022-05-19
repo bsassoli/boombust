@@ -33,7 +33,6 @@ psycopg2-binary==2.8.6
 pyasn1==0.4.8
 pycodestyle==2.8.0
 pycparser==2.21
-pygraphviz==1.9
 PyJWT==2.3.0
 Pyment==0.3.3
 pyOpenSSL==22.0.0
