@@ -2,6 +2,8 @@ import React from "react";
 import { alpha, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
+import Link from "@mui/material/Box";
+import { Link as RouterLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -46,7 +48,6 @@ const Hero = () => {
                 Our signals bring you the sophisticated analyses used by banks
                 and hedge funds in a simple format and at a reasonable price.
                 <br />
-                
               </Typography>
             </Box>
             <Box
@@ -54,14 +55,19 @@ const Hero = () => {
               flexDirection={{ xs: "column", sm: "row" }}
               alignItems={{ xs: "stretched", sm: "flex-start" }}
             >
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                fullWidth={isMd ? false : true}
-              >
-                Start now
-              </Button>
+              
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to="/signup"
+                  underline={"none"}
+                  color="primary"
+                  size="large"
+                  fullWidth={isMd ? false : true}
+                >
+                  Start now
+                </Button>
+              
               <Box
                 component={Button}
                 variant="outlined"

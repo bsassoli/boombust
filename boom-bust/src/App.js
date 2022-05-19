@@ -1,15 +1,24 @@
-import Home from './Pages/Home';
+import HomePage from './Pages/HomePage';
 import {Route, Switch} from 'react-router-dom'
+import SignupCover from './components/SignupCover';
+import SigninCover from "./components/SigninCover";
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Switch>
-        <Route path='' exact>
-          <Home />
+        <Route exact path="/">
+          <HomePage />
+        </Route>
+        <Route exact path="/signup">
+          <SignupCover />
+        </Route>
+        <Route exact path="/signin">
+          <SigninCover />
         </Route>
       </Switch>
-      <Home />  
     </div>
   );
 }

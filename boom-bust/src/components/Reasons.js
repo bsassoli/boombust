@@ -53,7 +53,7 @@ const mock = [
   {
     title: "RELIABLE",
     subtitle:
-      "We constantly backtest our predictions against the market to verify and imporve their accuracy.",
+      "We constantly backtest our predictions against the market to verify and improve their accuracy.",
     icon: (
       <svg
         height={24}

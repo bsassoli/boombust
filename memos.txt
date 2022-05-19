@@ -6,5 +6,5 @@ tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9Qn
 **************************************************************************************************
 CURL
 curl -X POST -d "client_id=CwhChNsaf7xyzVF8jEUmfDnV0clNWxTnWoU8nyL0&client_secret=tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9QnGG3YTPOJXXulppqwXlOLUCBJoTSYPujGM5IHtzTMmqqOp10u&grant_type=password&username=bernardino&password=boombust" http://localhost:8000/auth/token/
-
+curl --header "Content-Type: application/json" -X POST http://127.0.0.1:8000/users/token/obtain/ --data '{"username":"superuser","password":"superuser"}'
 coverage run --omit='*/.env*/' manage.py test
