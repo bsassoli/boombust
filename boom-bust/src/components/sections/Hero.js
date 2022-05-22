@@ -2,13 +2,12 @@ import React from "react";
 import { alpha, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Box";
 import { Link as RouterLink } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-import Container from "./Container";
+import Container from "../UI/Container";
 
 const Hero = () => {
   const theme = useTheme();

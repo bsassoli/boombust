@@ -4,8 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 
-import Container from './Container';
-import SigninForm from './SigninForm';
+import Container from '../components/UI/Container';
+import SigninForm from '../components/auth/SigninForm';
 
 const SigninCover = () => {
   const theme = useTheme();

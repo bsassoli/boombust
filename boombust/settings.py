@@ -101,16 +101,16 @@ if os.getenv('GITHUB_WORKFLOW'):
         }
     }
 else:
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.postgresql_psycopg2",
-                # 'NAME': BASE_DIR / 'db.sqlite3',
-                "NAME": "users",
-                "USER": "admin",
-                "PASSWORD": "password",
-                "HOST": "localhost",
-            }
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            # 'NAME': BASE_DIR / 'db.sqlite3',
+            "NAME": "users",
+            "USER": "admin",
+            "PASSWORD": "password",
+            "HOST": "localhost",
         }
+    }
 
 
 # Password validation
