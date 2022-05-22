@@ -4,8 +4,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
+import Container from "../UI/Container";
 
-const mock = [
+const contents = [
   {
     title: "SIMPLE",
     subtitle:
@@ -74,72 +75,74 @@ const mock = [
   },
 ];
 
-const Reasons = () => {
+const Reasons = (props) => {
   const theme = useTheme();
   return (
-    <Box>
-      <Box marginBottom={4}>
-        <Box marginBottom={2}>
-          <Typography
-            variant="h4"
-            color="text.primary"
-            align={"center"}
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Developed by David Brown and Professor Nouriel Roubini
-          </Typography>
-          <Typography
-            variant="h6"
-            component="p"
-            color="text.secondary"
-            sx={{ fontWeight: 400 }}
-            align={"center"}
-          >
-            Our digital signal is based on both fundamental and statistical
-            analysis that has been applied to different asset classes to measure
-            the possibility of a market correction.
-          </Typography>
+    <Container id={props.id}>
+      <Box>
+        <Box marginBottom={4}>
+          <Box marginBottom={2}>
+            <Typography
+              variant="h4"
+              color="text.primary"
+              align={"center"}
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Developed by David Brown and Professor Nouriel Roubini
+            </Typography>
+            <Typography
+              variant="h6"
+              component="p"
+              color="text.secondary"
+              sx={{ fontWeight: 400 }}
+              align={"center"}
+            >
+              Our digital signal is based on both fundamental and statistical
+              analysis that has been applied to different asset classes to
+              measure the possibility of a market correction.
+            </Typography>
+          </Box>
         </Box>
-      </Box>
-      <Grid container spacing={2}>
-        {mock.map((item, i) => (
-          <Grid item xs={12} md={4} key={i}>
-            <Box width={1} height={1}>
-              <Box
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-              >
+        <Grid container spacing={2}>
+          {contents.map((item, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <Box width={1} height={1}>
                 <Box
-                  component={Avatar}
-                  width={60}
-                  height={60}
-                  marginBottom={2}
-                  bgcolor={alpha(theme.palette.primary.main, 0.1)}
-                  color={theme.palette.primary.main}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  alignItems={"center"}
                 >
-                  {item.icon}
+                  <Box
+                    component={Avatar}
+                    width={60}
+                    height={60}
+                    marginBottom={2}
+                    bgcolor={alpha(theme.palette.primary.main, 0.1)}
+                    color={theme.palette.primary.main}
+                  >
+                    {item.icon}
+                  </Box>
+                  <Typography
+                    variant={"h6"}
+                    gutterBottom
+                    sx={{ fontWeight: 500 }}
+                    align={"center"}
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography align={"center"} color="text.secondary">
+                    {item.subtitle}
+                  </Typography>
                 </Box>
-                <Typography
-                  variant={"h6"}
-                  gutterBottom
-                  sx={{ fontWeight: 500 }}
-                  align={"center"}
-                >
-                  {item.title}
-                </Typography>
-                <Typography align={"center"} color="text.secondary">
-                  {item.subtitle}
-                </Typography>
               </Box>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 

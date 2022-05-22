@@ -1,21 +1,27 @@
 import React from "react";
-import Hero from "../components/Hero";
-import Container from "../components/Container";
-import Reasons from "../components/Reasons";
-import SimpleTable from "../components/SimpleTable";
+import Container from "../components/UI/Container";
+import NavBar from "../components/UI/NavBar";
+import Hero from "../components/sections/Hero";
+import Reasons from "../components/sections/Reasons";
+import SimpleTable from "../components/sections/SimpleTable";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Fab from "@mui/material/Fab";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Zoom from "@mui/material/Zoom";
+
 
 const HomePage = () => {
   return (
-    
     <React.Fragment>
+      <NavBar />
       <Container>
         <Hero />
       </Container>
       <Container>
-        <Reasons />
+        <Reasons id="reasons" />
       </Container>
       <Container>
-        <SimpleTable />
+        <SimpleTable id="signals" />
       </Container>
     </React.Fragment>
   );

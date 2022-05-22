@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -14,8 +14,16 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { NavHashLink as NavLink } from "react-router-hash-link";
 
-const pages = ["Products", "Pricing", "Blog"];
+// import { Link, animateScroll as scroll, ScrollLink } from "react-scroll";
+
+const pages_objects = [
+  {name: "What is it", link: "#reasons"}, 
+  {name: "Signals", link: "#signals"},
+  {name: "Sign in", link: "signin"},
+];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar = () => {
@@ -25,7 +33,7 @@ const NavBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -39,7 +47,7 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -48,13 +56,14 @@ const NavBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Link 
-              component={RouterLink} 
-              to={'/'}
-              underline="none" 
-              color="inherit">
-                THE BOOM BUST
-              </Link>
+            <Link
+              component={RouterLink}
+              to={"/"}
+              underline="none"
+              color="inherit"
+            >
+              THE BOOM BUST
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -86,30 +95,52 @@ const NavBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages_objects.map((page, index) => (
+                <MenuItem key={index} onClick={handleCloseNavMenu}>
+                  <NavLink
+                    smooth
+                    to={page.link}
+                    underline={"none"}
+                    color={"inherit"}
+                  >
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            <Link
+              component={RouterLink}
+              to="/"
+              underline="none"
+              color="inherit"
+            >
+              TBB
+            </Link>
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+            {pages_objects.map((page, index) => (
+              <NavLink
+                smooth
+                to={page.link}
+                underline={"none"}
               >
-                {page}
-              </Button>
+                <Button
+                  key={index}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block"}}
+                >
+                  {page.name}
+                </Button>
+              </NavLink>
             ))}
           </Box>
 
@@ -145,6 +176,7 @@ const NavBar = () => {
         </Toolbar>
       </Container>
     </AppBar>
+      
   );
 };
 export default NavBar;

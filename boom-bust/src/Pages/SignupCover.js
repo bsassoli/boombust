@@ -2,8 +2,8 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Container from './Container';
-import Form from './SignupForm';
+import Container from '../components/UI/Container';
+import Form from '../components/auth/SignupForm';
 
 const SignupCover = () => {
   const theme = useTheme();
