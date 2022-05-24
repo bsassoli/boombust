@@ -3,14 +3,16 @@ from django.urls import reverse_lazy
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework import permissions, status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserSerializer
 from .models import CustomUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserSerializerWithToken
+from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
+
 
 class UserList(APIView):
     """
@@ -21,7 +23,7 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
-        serializer = UserSerializerWithToken(data=request.data)
+        serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -29,22 +31,32 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserViewSet(ModelViewSet):
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+    permission_classes = (permissions.AllowAny,)
+    
+
+class CustomUserCreate(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format='json'):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserViewSet(ReadOnlyModelViewSet):
     """API CustomUser viewset."""
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
+    # permission_classes = [IsAuthenticated]
+    serializer_class = CustomUserSerializer
     queryset = CustomUser.objects.all().order_by("last_name")
     
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(user = self.request.user)
-    
+        queryset = self.queryset.filter(username=self.request.query_params['username'])
         return queryset
     
-class SignUpView(SuccessMessageMixin, CreateView):
-    """API CustomUser signup view."""
-
-    template_name = "users/signup.html"
-    success_url = reverse_lazy("signup")
-    form_class = UserRegisterForm
-    success_message = "Your profile was created successfully"

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@mui/material/Box';
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import {Link as RouterLink} from 'react-router-dom';
+
 
 const validationSchema = yup.object({
   firstName: yup
@@ -35,15 +36,65 @@ const validationSchema = yup.object({
 });
 
 const Form = () => {
-  const initialValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  };
+  
 
-  const onSubmit = (values) => {
-    return values;
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log(localStorage.getItem("token"));
+    if (localStorage.getItem("userToken") !== null) {
+      console.log("Redirecting");
+      // window.location.replace("/");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  const onSubmit =  (values) => {
+  
+  const user =  {
+      first_name: values.firstName,
+      last_name: values.lastName,
+      username: values.username,
+      email: values.email,
+      password: values.password,
+      
+    };
+    
+    fetch("http://127.0.0.1:8000/users/user/create/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.key) {
+          localStorage.clear();
+          localStorage.setItem("userToken", data.key);
+          // window.location.replace("/");
+        } else {
+          setEmail("");
+          setPassword("");
+          setUsername("");
+          localStorage.clear();
+          setErrors(true);
+        }
+      });
+  };
+  
+  
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    username: "",
   };
 
   const formik = useFormik({
@@ -57,11 +108,11 @@ const Form = () => {
       <Box marginBottom={4}>
         <Typography
           sx={{
-            textTransform: 'uppercase',
-            fontWeight: 'medium',
+            textTransform: "uppercase",
+            fontWeight: "medium",
           }}
           gutterBottom
-          color={'text.secondary'}
+          color={"text.secondary"}
         >
           Signup
         </Typography>
@@ -80,13 +131,13 @@ const Form = () => {
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+            <Typography variant={"subtitle2"} sx={{ marginBottom: 2 }}>
               Enter your first name
             </Typography>
             <TextField
               label="First name *"
               variant="outlined"
-              name={'firstName'}
+              name={"firstName"}
               fullWidth
               value={formik.values.firstName}
               onChange={formik.handleChange}
@@ -97,13 +148,13 @@ const Form = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+            <Typography variant={"subtitle2"} sx={{ marginBottom: 2 }}>
               Enter your last name
             </Typography>
             <TextField
               label="Last name *"
               variant="outlined"
-              name={'lastName'}
+              name={"lastName"}
               fullWidth
               value={formik.values.lastName}
               onChange={formik.handleChange}
@@ -112,13 +163,13 @@ const Form = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+            <Typography variant={"subtitle2"} sx={{ marginBottom: 2 }}>
               Enter your email
             </Typography>
             <TextField
               label="Email *"
               variant="outlined"
-              name={'email'}
+              name={"email"}
               fullWidth
               value={formik.values.email}
               onChange={formik.handleChange}
@@ -127,14 +178,29 @@ const Form = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+            <Typography variant={"subtitle2"} sx={{ marginBottom: 2 }}>
+              Choose a username
+            </Typography>
+            <TextField
+              label="Username *"
+              variant="outlined"
+              name={"username"}
+              fullWidth
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant={"subtitle2"} sx={{ marginBottom: 2 }}>
               Enter your password
             </Typography>
             <TextField
               label="Password *"
               variant="outlined"
-              name={'password'}
-              type={'password'}
+              name={"password"}
+              type={"password"}
               fullWidth
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -145,27 +211,27 @@ const Form = () => {
           <Grid item container xs={12}>
             <Box
               display="flex"
-              flexDirection={{ xs: 'column', sm: 'row' }}
-              alignItems={{ xs: 'stretched', sm: 'center' }}
-              justifyContent={'space-between'}
+              flexDirection={{ xs: "column", sm: "row" }}
+              alignItems={{ xs: "stretched", sm: "center" }}
+              justifyContent={"space-between"}
               width={1}
               maxWidth={600}
-              margin={'0 auto'}
+              margin={"0 auto"}
             >
               <Box marginBottom={{ xs: 1, sm: 0 }}>
-                <Typography variant={'subtitle2'}>
-                  Already have an account?{' '}
+                <Typography variant={"subtitle2"}>
+                  Already have an account?{" "}
                   <Link
                     component={RouterLink}
-                    color={'primary'}
-                    to={'/signin'}
-                    underline={'none'}
+                    color={"primary"}
+                    to={"/signin"}
+                    underline={"none"}
                   >
                     Login.
                   </Link>
                 </Typography>
               </Box>
-              <Button size={'large'} variant={'contained'} type={'submit'}>
+              <Button size={"large"} variant={"contained"} type={"submit"}>
                 Sign up
               </Button>
             </Box>
@@ -174,20 +240,20 @@ const Form = () => {
             item
             container
             xs={12}
-            justifyContent={'center'}
-            alignItems={'center'}
+            justifyContent={"center"}
+            alignItems={"center"}
           >
             <Typography
-              variant={'subtitle2'}
-              color={'text.secondary'}
-              align={'center'}
+              variant={"subtitle2"}
+              color={"text.secondary"}
+              align={"center"}
             >
-              By clicking "Sign up" button you agree with our{' '}
+              By clicking "Sign up" button you agree with our{" "}
               <Link
-                component={'a'}
-                color={'primary'}
-                href={'/company-terms'}
-                underline={'none'}
+                component={"a"}
+                color={"primary"}
+                href={"/company-terms"}
+                underline={"none"}
               >
                 company terms and conditions.
               </Link>

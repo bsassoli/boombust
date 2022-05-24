@@ -4,11 +4,6 @@ import NavBar from "../components/UI/NavBar";
 import Hero from "../components/sections/Hero";
 import Reasons from "../components/sections/Reasons";
 import SimpleTable from "../components/sections/SimpleTable";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
-import Fab from "@mui/material/Fab";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import Zoom from "@mui/material/Zoom";
-
 
 const HomePage = () => {
   return (

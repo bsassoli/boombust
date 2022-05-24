@@ -3,7 +3,7 @@ from .models import CustomUser
 
 # Register your models here.
 class CustomUserAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('id',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

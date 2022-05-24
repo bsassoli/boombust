@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from users.models import CustomUser
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserSerializer(serializers.ModelSerializer):
     """User serializer"""
@@ -12,29 +13,48 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "email",
+            "password"
         ]
+        # read_only_fields = ["password"]
 
 
-class UserSerializerWithToken(serializers.ModelSerializer):
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+        # Add custom claims
+        return token
+
+class CustomUserSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
+    email = serializers.EmailField(
+        required=True
+    )
+    username = serializers.CharField(required=True)
+    first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=True)
+    password = serializers.CharField(
+        min_length=8, write_only=True, required=True)
+    
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'username', 'password', 'token', 'first_name', 'last_name')
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def get_token(self, obj):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        return token
+    def get_token(self, user):
+        refresh = RefreshToken.for_user(user)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
+        # as long as the fields are the same, we can just use this
         instance = self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)
         instance.save()
         return instance
-
-    class Meta:
-        model = CustomUser
-        fields = ('token', 'email', 'password')

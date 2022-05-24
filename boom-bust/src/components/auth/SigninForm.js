@@ -35,7 +35,7 @@ const login_api = async (username, password, success, fail) => {
 
   const text = await response.text();
 
-  if (response.status === 200) {
+  if (response.status === 200) {    
     console.log("success", JSON.parse(text));
     success(JSON.parse(text));
   } else {
