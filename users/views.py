@@ -1,5 +1,7 @@
+from email import message
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from psycopg2 import IntegrityError
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -14,23 +16,6 @@ from rest_framework.views import APIView
 from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
 
 
-class UserList(APIView):
-    """
-    Create a new user. It's called 'UserList' because normally we'd have a get
-    method here too, for retrieving a list of all User objects.
-    """
-
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, format=None):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print("Errors" + serializer.errors)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
     permission_classes = (permissions.AllowAny,)
@@ -41,12 +26,24 @@ class CustomUserCreate(APIView):
 
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
+        
+        if serializer.is_valid(raise_exception=True):
+            # check if the username already exists or not
+            username = serializer.validated_data.get('username')
+            if CustomUser.objects.filter(username=username).count() > 0:
+                return Response({"error": "This username is already taken."}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            
+            # check if the username already exists or not
+            email = serializer.validated_data.get('email')
+            if CustomUser.objects.filter(email=email).count() > 0:
+                return Response({"error": "This email is already in use."}, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+            # if username is new
             user = serializer.save()
             if user:
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)            
 
 
 class UserViewSet(ReadOnlyModelViewSet):
