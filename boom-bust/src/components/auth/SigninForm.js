@@ -55,7 +55,7 @@ const validationSchema = yup.object({
 });
 
 const Form = () => {
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(true);
@@ -73,11 +73,13 @@ const Form = () => {
     if (isLogin) {
     } else {
       const success = async text => {
-        setMessage(text);
+        await setMessage(text);
+        await console.log(text.user_id);
         setIsLogin((prevState) => !prevState);
         setIsSuccess(true);
         await localStorage.setItem("userToken", text.access);
-        window.location = "/";
+        await localStorage.setItem("userId", text.user_id);
+        window.location = "/logged";
       };
       login_api(values.username, values.password, success, async (text) => {
         setMessage(text);

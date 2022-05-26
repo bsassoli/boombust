@@ -1,5 +1,7 @@
+from distutils.command.build_scripts import first_line_re
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+
 
 # Create your tests here.
 class ModelTests(TestCase):
@@ -16,10 +18,3 @@ class ModelTests(TestCase):
         self.assertEqual(user.email, email)
         self.assertEqual(user.username, username)
         self.assertTrue(user.check_password(password))
-
-
-class ViewsTests(TestCase):
-    def test_signup_page_exists(self):
-        """test_signup_page_exists Checks that a sign up page exists"""
-        response = self.client.get("/users/signup/")
-        self.assertEqual(response.status_code, 200)

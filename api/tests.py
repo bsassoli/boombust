@@ -13,5 +13,5 @@ class ModelTests(TestCase):
             name=name,
             ticker=ticker,
         )
-        
+
         self.assertEqual(asset.name, name)

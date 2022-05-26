@@ -1,24 +1,32 @@
+import { Route, Switch } from "react-router-dom";
+import { useContext } from "react";
+
+import AuthContext from "./store/AuthContext";
+
 import HomePage from './Pages/HomePage';
 import LoggedInHome from "./Pages/LoggedInHome";
-import {Route, Switch} from 'react-router-dom'
 import SignupCover from './Pages/SignupCover';
 import SigninCover from "./Pages/SigninCover";
 import Reasons from "./components/sections/Reasons";
 import SimpleTable from './components/sections/SimpleTable';
 import Page from './components/UI/Page';
 
+
+
 function App() {
- 
+  const authCtx = useContext(AuthContext);
+  
   return (
-    <div className="App">
+    <div className="App">      
       <Page>
         <Switch>
           <Route exact path="/">
             <HomePage />
           </Route>
+          {!!authCtx.token && (
           <Route exact path="/logged">
             <LoggedInHome />
-          </Route>
+          </Route>)}
           <Route exact path="/signals">
             <SimpleTable />
           </Route>

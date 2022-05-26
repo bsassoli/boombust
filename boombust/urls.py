@@ -27,5 +27,4 @@ urlpatterns = [
     # Admin
     path("admin/", admin.site.urls),
     # Subscriptions
-    path("subscriptions/", include("subscriptions.urls")),
 ]

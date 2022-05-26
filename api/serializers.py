@@ -5,8 +5,9 @@ from rest_framework import permissions
 
 class SignalSerializer(serializers.ModelSerializer):
     """Serializes the Signal model."""
+
     permission_classes = (permissions.IsAuthenticated,)
-    
+
     signal = serializers.CharField(source="get_signal_display")
     asset = serializers.CharField(source="asset.name")
 

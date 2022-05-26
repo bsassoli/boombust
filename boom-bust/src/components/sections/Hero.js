@@ -64,7 +64,7 @@ const Hero = () => {
                   size="large"
                   fullWidth={isMd ? false : true}
                 >
-                  Start now
+                  START NOW
                 </Button>
               
               <Box
@@ -76,7 +76,7 @@ const Hero = () => {
                 marginLeft={{ sm: 2 }}
                 fullWidth={isMd ? false : true}
               >
-                Learn more
+                LEARN MORE
               </Box>
             </Box>
           </Box>

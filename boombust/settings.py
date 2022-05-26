@@ -43,10 +43,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "django_extensions",
-    "oauth2_provider",
-    "social_django",
-    "drf_social_oauth2",
-    "subscriptions",
+    "oauth2_provider",    
     "users.apps.UsersConfig",
     "api.apps.ApiConfig",
 ]

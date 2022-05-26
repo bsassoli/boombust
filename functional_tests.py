@@ -16,8 +16,8 @@ class NewVisitorTest(unittest.TestCase):
 
     # home page exists
     def test_home_page_exists(self):
-        self.browser.get("http://localhost:8000/signals")
-        self.assertIn("Home", self.browser.title)
+        self.browser.get("http://localhost:3000/")
+        self.assertIn("The Boom Bust", self.browser.title)
 
 
 if __name__ == "__main__":
