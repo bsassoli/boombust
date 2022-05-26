@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import ThemeModeToggler from './ThemeModeToggler';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import { Link as RouterLink } from "react-router-dom";
@@ -14,13 +15,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { NavHashLink as NavLink } from "react-router-hash-link";
-
+// import { NavHashLink as HashLink } from "react-router-hash-link";
 // import { Link, animateScroll as scroll, ScrollLink } from "react-scroll";
 
 const pages_objects = [
-  {name: "What is it", link: "#reasons"}, 
-  {name: "Signals", link: "#signals"},
+  {name: "What is it", link: "reasons"}, 
+  {name: "Signals", link: "signals"},
   {name: "Sign in", link: "signin"},
 ];
 
@@ -65,7 +65,6 @@ const NavBar = () => {
               THE BOOM BUST
             </Link>
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -97,14 +96,14 @@ const NavBar = () => {
             >
               {pages_objects.map((page, index) => (
                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <NavLink
-                    smooth
+                  <Link
+                    component={RouterLink}
                     to={page.link}
                     underline={"none"}
                     color={"inherit"}
                   >
                     <Typography textAlign="center">{page.name}</Typography>
-                  </NavLink>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -125,17 +124,22 @@ const NavBar = () => {
               TBB
             </Link>
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages_objects.map((page, index) => (
-              <NavLink key={index} smooth to={page.link} underline={"none"}>
+              <Link
+                key = {index}  
+                component={RouterLink}
+                to={page.link}
+                underline="none"
+                color="inherit"
+              >
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page.name}
+                  {page.name.toLocaleUpperCase()}
                 </Button>
-              </NavLink>
+              </Link>
             ))}
           </Box>
 
@@ -167,6 +171,9 @@ const NavBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+          </Box>
+          <Box sx={{ flexGrow: 0, ml: 2 }}>
+            <ThemeModeToggler />
           </Box>
         </Toolbar>
       </Container>

@@ -33,14 +33,14 @@ const login_api = async (username, password, success, fail) => {
     }),
   });
 
-  const text = await response.text();
+  const text = await response.json();
 
   if (response.status === 200) {    
-    console.log("success", JSON.parse(text));
-    success(JSON.parse(text));
+    console.log("success", text);
+    success(text);
   } else {
     console.log("failed", text);
-    Object.entries(JSON.parse(text)).forEach(([key, value]) => {
+    Object.entries(text).forEach(([key, value]) => {
       fail(`${key}: ${value}`);
     });
   }
@@ -72,7 +72,7 @@ const Form = () => {
     setIsLoading(true);
     if (isLogin) {
     } else {
-      const success = async (text) => {
+      const success = async text => {
         setMessage(text);
         setIsLogin((prevState) => !prevState);
         setIsSuccess(true);
@@ -133,11 +133,11 @@ const Form = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {message}
+              {message.slice(7)}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button variant='contained' onClick={handleCloseModal}>Ok!</Button>
+            <Button variant='contained' onClick={handleCloseModal}>Ok</Button>
           </DialogActions>
         </Dialog>
       )}

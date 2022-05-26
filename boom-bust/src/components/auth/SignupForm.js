@@ -1,94 +1,122 @@
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect} from 'react';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import {Link as RouterLink} from 'react-router-dom';
-
+import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import { Link as RouterLink } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup
     .string()
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
+    .min(2, "Please enter a valid name")
+    .max(50, "Please enter a valid name")
+    .required("Please specify your first name"),
   lastName: yup
     .string()
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
+    .min(2, "Please enter a valid name")
+    .max(50, "Please enter a valid name")
+    .required("Please specify your last name"),
   email: yup
     .string()
     .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
+    .email("Please enter a valid email address")
+    .required("Email is required."),
   password: yup
     .string()
-    .required('Please specify your password')
-    .min(8, 'The password should have at minimum length of 8'),
+    .required("Please specify your password")
+    .min(8, "The password should have at minimum length of 8"),
 });
 
 const Form = () => {
-  
-
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log(localStorage.getItem("token"));
+  useEffect(() => {    
     if (localStorage.getItem("userToken") !== null) {
       console.log("Redirecting");
-      // window.location.replace("/");
+      // window.location.replace("/logged");
     } else {
       setLoading(false);
     }
   }, []);
 
-  const onSubmit =  (values) => {
-  
-  const user =  {
+  const onSubmit = async (values) => {
+    const user = {
       first_name: values.firstName,
       last_name: values.lastName,
       username: values.username,
       email: values.email,
       password: values.password,
-      
     };
+
+   const response = await fetch(`users/user/create/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({...user}),
+  }).catch(err => err);
+
+  const text = await response.text();
+  console.log(response.status);
+  if (response.status === 201) {    
+    console.log("success", JSON.parse(text));
     
-    fetch("http://127.0.0.1:8000/users/user/create/", {
+  } else {
+    console.log("failed", JSON.parse(text));
+    
+  }
+
+  /*   fetch("http://127.0.0.1:8000/users/user/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     })
-      .then((res) => res.json())
+      .catch((error) => {
+        console.log("Oops!");
+        console.log(error);
+        setErrors(true);
+        //console.log(error.response);
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        let fail = function (error) {console.log("Errors"); 
+        console.log(error)};
+        fail(res.json());
+        console.log("Is res ok? " + res.ok);      
+        console.log("Resp");
+        console.log(res);
+      })
       .then((data) => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("userToken", data.key);
-          // window.location.replace("/");
+          window.location.replace("/logged");
         } else {
           setEmail("");
           setPassword("");
           setUsername("");
           localStorage.clear();
           setErrors(true);
+          console.log(errors);
         }
-      });
+      }); */
   };
-  
-  
+
   const initialValues = {
     firstName: "",
     lastName: "",
