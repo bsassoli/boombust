@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import FacebookLogin from "react-facebook-login";
+import { Link as RouterLink } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -16,8 +18,16 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
+import fbLogin from "../../services/fbLogin";
+import AlertDialog from "../UI/AlertDialog";
 
-import { Link as RouterLink } from "react-router-dom";
+
+const responseFacebook = async (response) => {
+      // let fbResponse  = await fbLogin(response.accessToken);
+      // console.log(fbResponse);
+      console.log(response);
+      fbLogin(Response.accessToken);
+};
 
 
 const login_api = async (username, password, success, fail) => {
@@ -70,6 +80,7 @@ const Form = () => {
 
   const onSubmit = (values) => {
     setIsLoading(true);
+    // setTimeout(setIsModalActive(true));
     if (isLogin) {
     } else {
       const success = async text => {
@@ -122,26 +133,29 @@ const Form = () => {
           Login to manage your account.
         </Typography>
       </Box>
-
+      
       {!isSuccess && (
-        <Dialog
-          open={isModalActive}
-          onClose={handleCloseModal}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"We have a problem!"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {message.slice(7)}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button variant='contained' onClick={handleCloseModal}>Ok</Button>
-          </DialogActions>
-        </Dialog>
+                  
+          <Dialog
+            open={isModalActive}
+            onClose={handleCloseModal}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"We have encounterd a problem"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">                
+                {message.slice(7)}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button variant="contained" onClick={handleCloseModal}>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>        
       )}
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
@@ -223,6 +237,14 @@ const Form = () => {
               <Button size={"large"} variant={"contained"} type={"submit"}>
                 Login
               </Button>
+              <FacebookLogin
+                appId="542964603991973"
+                // autoLoad={true}
+                fields="email, name"
+                callback={responseFacebook}
+                cssClass="my-facebook-button-class"
+                icon="fa-facebook"
+              />
             </Box>
           </Grid>
         </Grid>

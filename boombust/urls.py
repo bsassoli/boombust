@@ -26,5 +26,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     # Admin
     path("admin/", admin.site.urls),
-    # Subscriptions
+    
+    # path('oauth/', include('rest_framework_social_oauth2.urls')),
 ]
+

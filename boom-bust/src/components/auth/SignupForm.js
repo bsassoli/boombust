@@ -43,6 +43,7 @@ const Form = () => {
   useEffect(() => {    
     if (localStorage.getItem("userToken") !== null) {
       console.log("Redirecting");
+/* Redirecting the user to the logged page. */
       // window.location.replace("/logged");
     } else {
       setLoading(false);

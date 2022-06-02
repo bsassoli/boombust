@@ -19,10 +19,13 @@ const HomePage = () => {
     return JSON.parse(window.atob(base64));
   }
   const [currentUserData, setCurrentUserData] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const tokenData = parseJWT(authCtx.token);
   const userId = tokenData.user_id;
 
-  const getUser = () => {axios
+  const getUser = () => {
+    axios
     .get("http://127.0.0.1:8000/users/users/?id=" + userId + "", {
       headers: {
         Accept: "application/json",
@@ -34,7 +37,8 @@ const HomePage = () => {
       setCurrentUserData(userData);
     })};
   
-  useEffect(getUser);
+  useEffect(getUser, [userId] );
+
   return (
     <React.Fragment>
       <NavBar />

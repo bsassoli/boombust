@@ -3,7 +3,6 @@ import axios from "axios";
 
 import { useTheme } from '@mui/material/styles';
 import Table from '@mui/material/Table';
-import Box from '@mui/material/Box';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -36,7 +35,6 @@ const SimpleTable = (props) => {
     getData();
   }, []);
 
-  
 
   return (
     <Container id={props.id}>
@@ -46,12 +44,16 @@ const SimpleTable = (props) => {
           {`There is a problem fetching the post data - ${error}`}
         </Alert>
       ) : (
-        <Box>
+        <div>
           <Container>
-            <Typography sx={{
+            <Typography
+              sx={{
                 fontWeight: 700,
               }}
-              color="text.primary" variant="h4" align={"center"}>
+              color="text.primary"
+              variant="h4"
+              align={"center"}
+            >
               Signals
             </Typography>
           </Container>
@@ -139,11 +141,18 @@ const SimpleTable = (props) => {
                       </TableCell>
                       <TableCell>
                         <Typography
+                          color={item.signal_display
+                            .split(" ")[0]
+                            .toLowerCase()}
                           variant={"caption"}
                           fontWeight={700}
-                          sx={{ color: theme.palette.success.main }}
-                        >
-                          {item.signal}
+                          sx={{
+                            color: item.signal_display
+                              .split(" ")[0]
+                              .toLowerCase(),
+                          }}
+                        >                          
+                          {item.signal_display}
                         </Typography>
                       </TableCell>
                       <TableCell>
@@ -159,7 +168,7 @@ const SimpleTable = (props) => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Box>
+        </div>
       )}
     </Container>
   );

@@ -8,12 +8,12 @@ class SignalSerializer(serializers.ModelSerializer):
 
     permission_classes = (permissions.IsAuthenticated,)
 
-    signal = serializers.CharField(source="get_signal_display")
+    signal_display = serializers.CharField(source="get_signal_display")
     asset = serializers.CharField(source="asset.name")
 
     class Meta:
         model = Signal
-        fields = "__all__"
+        fields = '__all__'
 
 
 class AssetSerializer(serializers.ModelSerializer):
@@ -21,3 +21,4 @@ class AssetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Asset
+        fields = '__all__'

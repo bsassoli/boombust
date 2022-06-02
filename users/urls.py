@@ -3,6 +3,7 @@ from users.views import UserViewSet, CustomUserCreate, MyTokenObtainPairView
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from rest_framework_simplejwt import views as jwt_views
+from .views import SocialLoginView
 
 
 router = DefaultRouter()
@@ -15,4 +16,5 @@ urlpatterns = [
     path(
         "token/obtain/", MyTokenObtainPairView.as_view(), name="token_create"
     ),  # override sjwt stock token
+    path('oauth/login/', SocialLoginView.as_view()),
 ]

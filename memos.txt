@@ -12,6 +12,8 @@ coverage run --omit='*/.env*/' manage.py test
 
 # Check social token
 curl -X POST -d "client_id=CwhChNsaf7xyzVF8jEUmfDnV0clNWxTnWoU8nyL0&client_secret=tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9QnGG3YTPOJXXulppqwXlOLUCBJoTSYPujGM5IHtzTMmqqOp10u&grant_type=password&username=bernardino&password=boombust" http://localhost:8000/auth/token/
+curl -X POST -d "grant_type=convert_token&client_id=CwhChNsaf7xyzVF8jEUmfDnV0clNWxTnWoU8nyL0&client_secret=tBV0hOLuQ4KFrnJdXzDfIPRPoNOg04NiZIqxsYEyJToc1VryKCZkxGsNx7zkhodhctH85MAvNNroj9QnGG3YTPOJXXulppqwXlOLUCBJoTSYPujGM5IHtzTMmqqOp10u&backend=facebook&token=EAAHt0sxYt6UBAKilCYTWfoXcTOJv55OF6XpiW7D1YE3Ruiv88D5HrbWreO0Hr4EPWvWgvP8BpQ5k3wDRfwz24sjh0UjQePS3hKgUZAa7fHIVdYzLtzfDtDtqbdnn1hZBZBbBRZCN5FmdetQxZBo7j2ggce6hJFCpZA6VR65wRZCH8iyOND4dt6DLSxswZANfkjO3oMkz7eYeGfSPpl1Qhx7zJ8uh81nNqEkZD" http://localhost:8000/auth/convert-token
+
 
 # Check token/obtain api
 curl --header "Content-Type: application/json" -X POST http://127.0.0.1:8000/users/token/obtain/ --data '{"username":"superuser","password":"superuser"}'
